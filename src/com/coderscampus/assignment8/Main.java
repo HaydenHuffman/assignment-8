@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 
 public class Main {
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unlikely-arg-type" })
 	public static void main(String[] args) {
 		
 		
@@ -24,10 +24,21 @@ public class Main {
 		for(int i = 0; i < 1000; i++) {
 		
 	            CompletableFuture<Void> number = CompletableFuture.runAsync(() -> {
-	                List<Integer> numbersList = Collections.synchronizedList(assignment8.getNumbers());}, pool);
+	               Collections.synchronizedList(assignment8.getNumbers());}, pool);
 		
 	            numbers.add(number);
 				}
+		
+		
+		for (int i = 0; i <= 14; i++) {
+			int c = 0;
+			for  (CompletableFuture<Void> n : numbers) {
+				if (n == i) {
+					c++;
+				}
+			}
+			System.out.print("%i: %c, ");;
+		}
 		
 		
 	
