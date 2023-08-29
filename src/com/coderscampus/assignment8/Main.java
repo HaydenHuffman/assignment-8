@@ -19,13 +19,14 @@ public class Main {
 		
 		ExecutorService pool = Executors.newCachedThreadPool();
 	
-		List<List<Integer>> numbers = new ArrayList<>();
+		List<CompletableFuture<Void>> numbers = new ArrayList<>();
 		
 		for(int i = 0; i < 1000; i++) {
 		
 	            CompletableFuture<Void> number = CompletableFuture.runAsync(() -> {
 	                List<Integer> numbersList = Collections.synchronizedList(assignment8.getNumbers());}, pool);
 		
+	            numbers.add(number);
 				}
 		
 		
