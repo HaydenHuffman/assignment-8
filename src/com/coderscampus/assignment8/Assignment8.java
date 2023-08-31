@@ -49,14 +49,12 @@ public class Assignment8 {
 	            Thread.sleep(500);
 	        } catch (InterruptedException e) {
 	        }
-	        
+	 
 	        List<Integer> newList = new ArrayList<>();
 	        IntStream.range(start, end)
 	                .forEach(n -> {
 	                    newList.add(numbers.get(n));
 	                });
-	        CompletableFuture<Void> allTasks = CompletableFuture.allOf(newList.toArray(new CompletableFuture[0]));
-	        allTasks.join();
 	        System.out.println("Done Fetching records " + start + " to " + (end));
 	        return newList;
 	        
