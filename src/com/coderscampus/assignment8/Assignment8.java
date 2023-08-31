@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -14,7 +15,8 @@ public class Assignment8 {
 	 	private List<Integer> numbers = null;
 	    private AtomicInteger i = new AtomicInteger(0);
 
-	    public Assignment8() {
+
+		public Assignment8() {
 	        try {
 	        	 numbers = Files.readAllLines(Paths.get("output.txt"))
 	        			 		.stream()
@@ -47,14 +49,17 @@ public class Assignment8 {
 	            Thread.sleep(500);
 	        } catch (InterruptedException e) {
 	        }
-
+	        
 	        List<Integer> newList = new ArrayList<>();
 	        IntStream.range(start, end)
 	                .forEach(n -> {
 	                    newList.add(numbers.get(n));
 	                });
+	        CompletableFuture<Void> allTasks = CompletableFuture.allOf(newList.toArray(new CompletableFuture[0]));
+	        allTasks.join();
 	        System.out.println("Done Fetching records " + start + " to " + (end));
 	        return newList;
+	        
 	    }
 
 }
